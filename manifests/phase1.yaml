@@ -1,0 +1,66 @@
+# Phase 1 Guinea Pig Datasets
+# A small set of test sources for validating the ingestion pipeline
+
+name: phase1
+description: "Initial test sources - data.gov + FRED economic data"
+
+sources:
+  # ===== FRED Economic Data =====
+  
+  - id: fred_gdp
+    source: fred
+    series_id: GDP
+    format: JSON
+    update_cadence: quarterly
+    license: "Public Domain"
+    description: "Gross Domestic Product - quarterly"
+  
+  - id: fred_unemployment
+    source: fred
+    series_id: UNRATE
+    format: JSON
+    update_cadence: monthly
+    license: "Public Domain"
+    description: "Unemployment Rate - monthly"
+  
+  - id: fred_inflation
+    source: fred
+    series_id: CPIAUCSL
+    format: JSON
+    update_cadence: monthly
+    license: "Public Domain"
+    description: "Consumer Price Index - monthly"
+  
+  - id: fred_interest_rate
+    source: fred
+    series_id: FEDFUNDS
+    format: JSON
+    update_cadence: monthly
+    license: "Public Domain"
+    description: "Federal Funds Effective Rate"
+
+  # ===== data.gov Datasets =====
+  
+  - id: datagov_population
+    source: data.gov
+    query: "population estimates census"
+    format: CSV
+    update_cadence: yearly
+    license: "Public Domain"
+    description: "Census population estimates"
+  
+  - id: datagov_crime
+    source: data.gov
+    query: "crime statistics FBI"
+    format: CSV
+    update_cadence: yearly
+    license: "Public Domain"
+    description: "FBI crime statistics"
+
+settings:
+  output_dir: ./data
+  store_type: duckdb
+  log_level: INFO
+  api_keys:
+    # Set via environment variable FRED_API_KEY or --api-key flag
+    # fred: "your-key-here"
